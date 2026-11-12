@@ -1301,10 +1301,13 @@ body.image-zoom-open {
     <span class="mobile-men-arrow" id="mobileParfumArrow">＋</span>
    </button>
    <div class="mobile-submenu" id="mobileParfumSubmenu">
-    <a href="#" onclick="showPage('parfum-new-arrivals');toggleMobile()">
+    <a href="#" onclick="showPage('parfum');toggleMobile();return false">
+     PARFUM / SHOP ALL
+    </a>
+    <a href="#" onclick="showPage('parfum-new-arrivals');toggleMobile();return false">
      NEW ARRIVALS
     </a>
-    <a href="#" onclick="showPage('parfum-best-sellers');toggleMobile()">
+    <a href="#" onclick="showPage('parfum-best-sellers');toggleMobile();return false">
      BEST SELLERS
     </a>
    </div>
@@ -1599,13 +1602,22 @@ body.image-zoom-open {
     </div>
    </section>
    <section class="page" id="accessories">
-
-    <div class="coming-soon">
+    <div class="coming-soon" id="accessoriesComingSoon">
         <h2>COMING<br>SOON.</h2>
         <p>Something special is on the way.</p>
     </div>
 
-</section>
+    <div id="accessoriesCatalog" style="display:none;">
+        <div class="page-title">
+            <div class="kicker">ARTOZH / COLLECTION</div>
+            <h1>ACCESSORIES</h1>
+            <p>Complete your everyday style.</p>
+        </div>
+        <div class="collection-products">
+            <div class="products" id="allAccessories"></div>
+        </div>
+    </div>
+   </section>
    <section class="page" id="CUSTOME T-SHIRT">
     <div class="page-title">
      <div class="kicker">
@@ -2139,7 +2151,37 @@ function productCard(p) {
     `;
 }
 function render(id,list){const container=document.getElementById(id);if(!container)return;container.innerHTML=list.map(productCard).join('')}
-function init(){render('tshirtProducts',products.filter(p=>p.gender==='men'&&p.category==='tops'));render('homeProducts',products.slice(0,8));render('accessoryProducts',products.filter(p=>p.category==='accessories'));render('menProducts',products.filter(p=>p.gender==='men'));render('parfumProducts',products.filter(p=>p.gender==='parfum'));render('allAccessories',products.filter(p=>p.category==='accessories'));render('saleProducts',products.filter(p=>p.tag==='SALE'||p.id===3||p.id===8));render('polosProducts',products.filter(p=>p.category==='polos'));render('hoodiesProducts',products.filter(p=>p.category==='hoodies'));render('parfumNewArrivalsProducts',products.filter(p=>p.gender==='parfum'&&p.tag==='NEW'));render('parfumBestSellersProducts',products.filter(p=>p.gender==='parfum'&&p.tag==='BEST SELLER'))}
+function init() {
+    const getCategory = p => String(p.category || '').toLowerCase().trim();
+    const getGender = p => String(p.gender || '').toLowerCase().trim();
+    const getTag = p => String(p.tag || '').toUpperCase().trim();
+
+    render('tshirtProducts', products.filter(p => getGender(p) === 'men' && getCategory(p) === 'tops'));
+    render('homeProducts', products.slice(0, 8));
+
+    const accessories = products.filter(p => getCategory(p) === 'accessories');
+    render('accessoryProducts', accessories);
+
+    render('menProducts', products.filter(p => getGender(p) === 'men'));
+    render('parfumProducts', products.filter(p => getGender(p) === 'parfum'));
+    render('saleProducts', products.filter(p => getTag(p) === 'SALE' || p.id === 3 || p.id === 8));
+    render('polosProducts', products.filter(p => getCategory(p) === 'polos'));
+    render('hoodiesProducts', products.filter(p => getCategory(p) === 'hoodies'));
+    render('parfumNewArrivalsProducts', products.filter(p => getGender(p) === 'parfum' && getTag(p) === 'NEW'));
+    render('parfumBestSellersProducts', products.filter(p => getGender(p) === 'parfum' && getTag(p) === 'BEST SELLER'));
+
+    // Tampilkan katalog Accessories hanya jika ada produk aktif dari Supabase.
+    const comingSoon = document.getElementById('accessoriesComingSoon');
+    const catalog = document.getElementById('accessoriesCatalog');
+    if (accessories.length > 0) {
+        if (comingSoon) comingSoon.style.display = 'none';
+        if (catalog) catalog.style.display = 'block';
+        render('allAccessories', accessories);
+    } else {
+        if (comingSoon) comingSoon.style.display = 'flex';
+        if (catalog) catalog.style.display = 'none';
+    }
+}
 function showPage(id) {
     document.querySelectorAll('.page').forEach(page => {
         page.classList.remove('active');
