@@ -3,7 +3,7 @@
 // SUPABASE_URL = https://YOUR_PROJECT.supabase.co
 // SUPABASE_ANON_KEY = Supabase publishable/anon key
 // Never use a service_role key here.
-
+// Redeploy after Cloudflare environment variables update
 export async function onRequestGet({ env }) {
   const supabaseUrl = env.SUPABASE_URL;
   const anonKey = env.SUPABASE_ANON_KEY;
