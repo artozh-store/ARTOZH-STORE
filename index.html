@@ -1242,6 +1242,9 @@ body.image-zoom-open {
         <a href="#" onclick="showPage('hoodies');return false">
          Hoodies
         </a>
+        <a href="#" onclick="showPage('pants');return false">
+         Pants / Trousers
+        </a>
        </div>  
       </div>
      </div>
@@ -1302,7 +1305,7 @@ body.image-zoom-open {
    </button>
    <div class="mobile-submenu" id="mobileParfumSubmenu">
     <a href="#" onclick="showPage('parfum');toggleMobile();return false">
-     PARFUM
+     PARFUM / SHOP ALL
     </a>
     <a href="#" onclick="showPage('parfum-new-arrivals');toggleMobile();return false">
      NEW ARRIVALS
@@ -1324,10 +1327,13 @@ body.image-zoom-open {
     <a href="#" onclick="showPage('hoodies');toggleMobile()">
      HOODIES
     </a>
-    <a href="#" onclick="showPage('tshirt');toggleMobile()">
+    <a href="#" onclick="showPage('tshirt');toggleMobile();return false">
      T-SHIRT
     </a>
-    <a href="#" onclick="showPage('accessories');toggleMobile()">
+    <a href="#" onclick="showPage('pants');toggleMobile();return false">
+     PANTS / CELANA
+    </a>
+    <a href="#" onclick="showPage('accessories');toggleMobile();return false">
      ACCESSORIES
     </a>
     <a href="#" onclick="showPage('sale');toggleMobile()">
@@ -1548,6 +1554,16 @@ body.image-zoom-open {
     </div>
     <div class="collection-products">
      <div class="products" id="hoodiesProducts"></div>
+    </div>
+   </section>
+   <section class="page" id="pants">
+    <div class="page-title">
+     <div class="kicker">ARTOZH / MEN'S COLLECTION</div>
+     <h1>PANTS COLLECTION</h1>
+     <p>Everyday bottoms. Comfort meets modern style.</p>
+    </div>
+    <div class="collection-products">
+     <div class="products" id="pantsProducts"></div>
     </div>
    </section>
    <section class="page" id="parfum">
@@ -2167,6 +2183,7 @@ function init() {
     render('saleProducts', products.filter(p => getTag(p) === 'SALE' || p.id === 3 || p.id === 8));
     render('polosProducts', products.filter(p => getCategory(p) === 'polos'));
     render('hoodiesProducts', products.filter(p => getCategory(p) === 'hoodies'));
+    render('pantsProducts', products.filter(p => getGender(p) === 'men' && getCategory(p) === 'bottoms'));
     render('parfumNewArrivalsProducts', products.filter(p => getGender(p) === 'parfum' && getTag(p) === 'NEW'));
     render('parfumBestSellersProducts', products.filter(p => getGender(p) === 'parfum' && getTag(p) === 'BEST SELLER'));
 
