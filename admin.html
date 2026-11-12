@@ -1,26 +1,225 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ARTOZH STORE — Admin</title><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><style>
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+   	 <!-- ARTOZH STORE FAVICON -->
+  <link rel="icon" type="image/png" href="https://imglink.cc/cdn/4ELdwZgHTu.png">
+  <link rel="shortcut icon" type="image/png" href="https://imglink.cc/cdn/4ELdwZgHTu.png">
+  <link rel="apple-touch-icon" href="https://imglink.cc/cdn/4ELdwZgHTu.png">
+
+  <meta name="theme-color" content="#000000">
+   
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   ARTOZH STORE — Admin
+  </title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+  </script>
+  <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f5f3;color:#111;font:14px Arial,sans-serif}.wrap{max-width:1100px;margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:24px}.brand{font-size:23px;font-weight:900;letter-spacing:-1px}.brand span{font-weight:300}h1{font-size:25px;margin:0 0 6px}.muted{color:#777}.panel{background:#fff;border:1px solid #e5e5e5;border-radius:14px;padding:20px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-weight:700;font-size:12px}input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;background:white;font:inherit}textarea{min-height:76px}button{border:0;border-radius:8px;padding:11px 15px;background:#111;color:#fff;font-weight:700;cursor:pointer}.secondary{background:#eee;color:#111}.danger{background:#b42318}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.hidden{display:none!important}.product{display:grid;grid-template-columns:65px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #eee}.product img{width:65px;height:70px;object-fit:cover;border-radius:7px;background:#eee}.product strong{display:block}.product small{color:#777}.status{padding:10px;background:#f3f3f3;border-radius:8px;margin:12px 0}.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center}.toolbar input{max-width:300px}@media(max-width:650px){.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.product{grid-template-columns:52px 1fr}.product img{width:52px;height:60px}.product .actions{grid-column:1/-1}.top{align-items:flex-start;flex-direction:column}}
 .store-link{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:116px;padding:12px 19px;background:#111;color:#fff;text-decoration:none;border:1px solid #111;border-radius:9px;font-size:11px;font-weight:800;letter-spacing:1.5px;transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease;box-shadow:0 5px 14px rgba(0,0,0,.10)}
 .store-link:hover{background:#fff;color:#111;transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
 .store-link-icon{font-size:16px;line-height:1}
-@media(max-width:650px){.top{align-items:center;flex-direction:row}.store-link{min-width:auto;padding:11px 15px}}</style></head><body><main class="wrap"><div class="top">
-<div class="brand">ARTOZH<span>®</span> <span class="muted">/ ADMIN</span></div>
-<a class="store-link" href="index.html" aria-label="Kembali ke ARTOZH STORE">
-  <span class="store-link-icon">↗</span>
-  <span>STORE</span>
-</a>
-</div>
-<section class="panel" id="loginPanel"><h1>Admin Login</h1><p class="muted">Masuk menggunakan akun admin Supabase yang sudah dibuat.</p><div class="grid"><div class="field"><label>Email admin</label><input id="email" type="email" autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" autocomplete="current-password"></div></div><div class="actions"><button id="loginBtn">Login</button></div><div class="status" id="loginStatus">Masuk untuk mengelola katalog ARTOZH STORE.</div></section>
-<section class="hidden" id="appPanel"><div class="toolbar"><div><h1>Kelola Produk</h1><p class="muted">Tambah, ubah, dan sembunyikan produk tanpa mengedit HTML.</p></div><button class="secondary" id="logoutBtn">Logout</button></div><div class="panel"><h2 id="formTitle">Tambah produk</h2><form id="productForm"><input type="hidden" id="productId"><div class="grid">
-<div class="field"><label>Nama produk *</label><input id="name" required></div><div class="field"><label>Harga (angka, tanpa Rp) *</label><input id="price" type="number" min="0" required></div>
-<div class="field"><label>Kategori *</label><input id="category" placeholder="tops, bottoms, accessories, eau-de-parfum" required></div><div class="field"><label>Gender / koleksi *</label><select id="gender"><option value="men">men</option><option value="women">women</option><option value="parfum">parfum</option><option value="all">all</option></select></div>
-<div class="field full"><label>Warna / variant (pisahkan dengan /)</label><input id="variant" placeholder="Black / White / Cream"></div><div class="field full"><label>Ukuran (pisahkan koma)</label><input id="sizes" placeholder="S, M, L, XL"></div>
-<div class="field full"><label>URL foto utama</label><input id="img" type="url" placeholder="https://..."></div><div class="field full"><label>Upload foto utama (opsional)</label><input id="mainImage" type="file" accept="image/*"></div>
-<div class="field full"><label>URL galeri foto (satu URL per baris)</label><textarea id="images" placeholder="https://...
-https://..."></textarea></div><div class="field full"><label>Upload foto galeri (opsional, bisa pilih banyak)</label><input id="galleryImages" type="file" accept="image/*" multiple></div>
-<div class="field"><label>Tag</label><input id="tag" placeholder="NEW / BEST SELLER / SALE"></div><div class="field"><label>Status</label><select id="is_active"><option value="true">Tampilkan</option><option value="false">Sembunyikan</option></select></div></div><div class="actions"><button type="submit" id="saveBtn">Simpan produk</button><button type="button" class="secondary" id="resetBtn">Kosongkan</button></div><div class="status" id="formStatus">Foto dapat menggunakan URL atau upload ke Storage bucket product-images.</div></form></div>
-<div class="panel"><div class="toolbar"><h2>Daftar produk</h2><div class="actions"><button type="button" class="secondary" id="importLegacyBtn">Import 20 produk awal</button><input id="search" placeholder="Cari produk..."></div></div><div id="productList">Memuat...</div></div></section></main>
-<script>
+@media(max-width:650px){.top{align-items:center;flex-direction:row}.store-link{min-width:auto;padding:11px 15px}}</style>
+ </head>
+ <body>
+  <main class="wrap">
+   <div class="top">
+    <div class="brand">
+     ARTOZH
+     <span>
+      ®
+     </span>
+     <span class="muted">
+      / ADMIN
+     </span>
+    </div>
+    <a aria-label="Kembali ke ARTOZH STORE" class="store-link" href="index.html">
+     <span class="store-link-icon">
+      ↗
+     </span>
+     <span>
+      STORE
+     </span>
+    </a>
+   </div>
+   <section class="panel" id="loginPanel">
+    <h1>
+     Admin Login
+    </h1>
+    <p class="muted">
+     Masuk menggunakan akun admin Supabase yang sudah dibuat.
+    </p>
+    <div class="grid">
+     <div class="field">
+      <label>
+       Email admin
+      </label>
+      <input autocomplete="username" id="email" type="email"/>
+     </div>
+     <div class="field">
+      <label>
+       Password
+      </label>
+      <input autocomplete="current-password" id="password" type="password"/>
+     </div>
+    </div>
+    <div class="actions">
+     <button id="loginBtn">
+      Login
+     </button>
+    </div>
+    <div class="status" id="loginStatus">
+     Masuk untuk mengelola katalog ARTOZH STORE.
+    </div>
+   </section>
+   <section class="hidden" id="appPanel">
+    <div class="toolbar">
+     <div>
+      <h1>
+       Kelola Produk
+      </h1>
+      <p class="muted">
+       Tambah, ubah, dan sembunyikan produk tanpa mengedit HTML.
+      </p>
+     </div>
+     <button class="secondary" id="logoutBtn">
+      Logout
+     </button>
+    </div>
+    <div class="panel">
+     <h2 id="formTitle">
+      Tambah produk
+     </h2>
+     <form id="productForm">
+      <input id="productId" type="hidden"/>
+      <div class="grid">
+       <div class="field">
+        <label>
+         Nama produk *
+        </label>
+        <input id="name" required=""/>
+       </div>
+       <div class="field">
+        <label>
+         Harga (angka, tanpa Rp) *
+        </label>
+        <input id="price" min="0" required="" type="number"/>
+       </div>
+       <div class="field">
+        <label>
+         Kategori *
+        </label>
+        <input id="category" placeholder="tops, bottoms, accessories, eau-de-parfum" required=""/>
+       </div>
+       <div class="field">
+        <label>
+         Gender / koleksi *
+        </label>
+        <select id="gender">
+         <option value="men">
+          men
+         </option>
+         <option value="women">
+          women
+         </option>
+         <option value="parfum">
+          parfum
+         </option>
+         <option value="all">
+          all
+         </option>
+        </select>
+       </div>
+       <div class="field full">
+        <label>
+         Warna / variant (pisahkan dengan /)
+        </label>
+        <input id="variant" placeholder="Black / White / Cream"/>
+       </div>
+       <div class="field full">
+        <label>
+         Ukuran (pisahkan koma)
+        </label>
+        <input id="sizes" placeholder="S, M, L, XL"/>
+       </div>
+       <div class="field full">
+        <label>
+         URL foto utama
+        </label>
+        <input id="img" placeholder="https://..." type="url"/>
+       </div>
+       <div class="field full">
+        <label>
+         Upload foto utama (opsional)
+        </label>
+        <input accept="image/*" id="mainImage" type="file"/>
+       </div>
+       <div class="field full">
+        <label>
+         URL galeri foto (satu URL per baris)
+        </label>
+        <textarea id="images" placeholder="https://...
+https://..."></textarea>
+       </div>
+       <div class="field full">
+        <label>
+         Upload foto galeri (opsional, bisa pilih banyak)
+        </label>
+        <input accept="image/*" id="galleryImages" multiple="" type="file"/>
+       </div>
+       <div class="field">
+        <label>
+         Tag
+        </label>
+        <input id="tag" placeholder="NEW / BEST SELLER / SALE"/>
+       </div>
+       <div class="field">
+        <label>
+         Status
+        </label>
+        <select id="is_active">
+         <option value="true">
+          Tampilkan
+         </option>
+         <option value="false">
+          Sembunyikan
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="actions">
+       <button id="saveBtn" type="submit">
+        Simpan produk
+       </button>
+       <button class="secondary" id="resetBtn" type="button">
+        Kosongkan
+       </button>
+      </div>
+      <div class="status" id="formStatus">
+       Foto dapat menggunakan URL atau upload ke Storage bucket product-images.
+      </div>
+     </form>
+    </div>
+    <div class="panel">
+     <div class="toolbar">
+      <h2>
+       Daftar produk
+      </h2>
+      <div class="actions">
+       <button class="secondary" id="importLegacyBtn" type="button">
+        Import 20 produk awal
+       </button>
+       <input id="search" placeholder="Cari produk..."/>
+      </div>
+     </div>
+     <div id="productList">
+      Memuat...
+     </div>
+    </div>
+   </section>
+  </main>
+  <script>
 const SUPABASE_URL='https://siwfctlsymhzmpmpfinw.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_JDLCJA-tu1YHCs2r5cbr7g_bom1iO8A';
 const ADMIN_UID='20c58215-e96d-4abd-a30f-f893d9fb6749';
@@ -42,4 +241,6 @@ window.deleteProduct=async id=>{if(!confirm('Hapus produk ini?'))return;const {e
 function resetForm(){$('productForm').reset();$('productId').value='';$('formTitle').textContent='Tambah produk'}$('resetBtn').onclick=resetForm;$('search').oninput=renderRows;
 $('importLegacyBtn').onclick=async()=>{if(!confirm('Import produk bawaan ARTOZH STORE ke database? Produk yang sudah ada tidak dihapus.'))return;const {count,error:countError}=await db.from('products').select('id',{count:'exact',head:true});if(countError){status('formStatus',countError.message);return}if(count>0){status('formStatus','Database sudah berisi produk. Import awal dibatalkan agar tidak membuat duplikat.');return}const payload=LEGACY_PRODUCTS.map(({id,...p})=>({...p,sizes:[],is_active:true,images:Array.isArray(p.images)?p.images:[]}));const {error}=await db.from('products').insert(payload);if(error){status('formStatus','Import gagal: '+error.message);return}status('formStatus','Produk awal berhasil diimpor.');await loadRows()};
 checkSession();
-</script></body></html>
+</script>
+ </body>
+</html>
