@@ -99,7 +99,71 @@ body:not(.login-mode) .store-link:hover{background:transparent;color:#fff}
  body:not(.login-mode) .product .actions button{flex:1}
 }
 
-    </style>
+    
+
+/* ARTOZH LOGIN SLIDESHOW — FULL VIEWPORT ON DESKTOP, TABLET & MOBILE
+   Only affects the login background; dashboard and application logic are unchanged. */
+html:has(body.login-mode),
+body.login-mode {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+body.login-mode {
+  position: relative;
+  overflow-x: hidden;
+}
+body.login-mode .login-slideshow {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  min-height: 100svh;
+}
+body.login-mode .login-slide {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+body.login-mode .login-slide-overlay,
+body.login-mode .login-embers {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+body.login-mode .wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+@media (max-width: 900px) {
+  body.login-mode .login-slideshow {
+    height: 100vh !important;
+    height: 100dvh !important;
+  }
+  body.login-mode .login-slide {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+@media (max-width: 650px) {
+  body.login-mode .login-slide {
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
+
+</style>
   </head>
   <body class="login-mode">
     <div class="login-slideshow" aria-hidden="true">
