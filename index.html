@@ -118,6 +118,49 @@
   }
 }
 
+
+/* ARTOZH READY STOCK — compact badge on mobile */
+@media(max-width:650px){
+  .ready-stock-badge{
+    top:7px;
+    right:7px;
+    padding:4px 6px;
+    border-radius:2px;
+    background:rgba(255,255,255,.94);
+    font-size:0;
+    line-height:1;
+    letter-spacing:0;
+    box-shadow:0 2px 7px rgba(0,0,0,.12);
+  }
+  .ready-stock-badge::before{
+    content:"";
+    display:inline-block;
+    width:5px;
+    height:5px;
+    margin-right:4px;
+    border-radius:50%;
+    background:#35a66a;
+    vertical-align:1px;
+  }
+  .ready-stock-badge::after{
+    content:"READY";
+    color:#111;
+    font-size:7px;
+    font-weight:800;
+    letter-spacing:.55px;
+  }
+}
+@media(max-width:380px){
+  .ready-stock-badge{
+    top:6px;
+    right:6px;
+    padding:3px 5px;
+  }
+  .ready-stock-badge::after{
+    font-size:6px;
+  }
+}
+
 </style>
  </head>
  <body>
